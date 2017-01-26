@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/25 19:21:25 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/26 11:16:29 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	linear_to_circular_lst(t_list *begin_lst)
 	t_list *previous;
 	t_list *tmp;
 
-	if (!begin_lst)
+	if (!begin_lst || !(begin_lst->next))
 		return ;
 	tmp = begin_lst->next;
 	previous = begin_lst;
@@ -45,10 +45,12 @@ void	print_list(t_list **start_a)
 	int i;
 	t_list *tmp;
 
+	if (!*start_a)
+		return ;
 	tmp = *start_a;
 
 	i = 0;
-	while (tmp->next != *start_a)
+	while (tmp->next != *start_a && tmp->next)
 	{
 		// printf("hello2\n");
 
@@ -103,28 +105,37 @@ void	ft_push_elem(char *line, t_list **start_a, t_list **start_b)
 {
 	if (!ft_strcmp(line, "pb"))
 	{
+		t_list *pivot;
+		pivot = (*start_a)->next;
+		((*start_a)->previous)->next = (*start_a)->next;
+		((*start_a)->next)->previous = (*start_a)->previous;
+		// printf("prev->next is %p, start->next is%p\n", ((*start_a)->previous)->next, (*start_a)->next);
 		// t_list *pivot;
 		// pivot = *start_a;
 		if (!*start_b)
 		{
 			*start_b = *start_a;
-			printf("hello\n");
 			(*start_b)->next = NULL;
 			(*start_b)->previous = NULL;
-			printf("hello\n");
 		}
-		// else
-		// {
-		// 	((*start_b)->previous)->next = *start_a;
-		// 	(*start_b)->previous = *start_a;
-		// 	(*start_a)->previous = (*start_b)->previous;
-		// 	(*start_a)->next = (*start_b);
-		// 	*start_b = *start_a;
-		// }
-		((*start_a)->previous)->next = (*start_a)->next;
-		((*start_a)->next)->previous = (*start_a)->previous;
-		*start_a = (*start_a)->next;
-		printf("hello\n");
+		else
+		{
+			(*start_a)->previous = (*start_b)->previous;
+			(*start_a)->next = (*start_b);
+			printf("hello4\n");
+			((*start_b)->previous)->next = *start_a;
+			printf("hello4\n");
+			(*start_b)->previous = *start_a;
+			printf("hello4\n");
+			*start_b = *start_a;
+			printf("hello4\n");
+		}
+		// printf("prev->next is %p, start->next is%p\n", ((*start_a)->previous)->next, (*start_a)->next);
+		// printf("prev->next is %p, start->next is%p\n", ((*start_a)->previous)->next, (*start_a)->next);
+		*start_a = pivot;
+		// printf("pivot is %p\n", pivot);
+		// printf("prev->next is %p, start->next is%p\n", ((*start_a)->previous)->next, (*start_a)->next);
+		// printf("hello4\n");
 	}
 }
 
@@ -170,8 +181,13 @@ int		main(int argc, char **argv)
 		// On lit entrees
 		ret = get_next_line(0, line);
 		ft_operation(line[0], start_a, start_b);
-		// printf("en sortie prev is%p, tmp is%p and next is%p\n", (*start_a)->previous, *start_a, (*start_a)->next);
-		print_list(start_a);
+		printf("stack a : \n");
+		if (*start_a)
+			print_list(start_a);
+		printf("stack b : \n");
+		if (*start_b)
+			print_list(start_b);
+
 	}
 return (0);
 }
