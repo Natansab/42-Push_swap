@@ -6,7 +6,7 @@
 /*   By: ewallner <ewallner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:13:07 by ewallner          #+#    #+#             */
-/*   Updated: 2017/01/26 20:49:16 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/27 17:12:33 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ void	read_ope(t_list **start_a, t_list **start_b);
 void	print_list(t_list **start_a);
 void	ft_operation(char *line, t_list **start_a, t_list **start_b);
 void	ft_operation(char *line, t_list **start_a, t_list **start_b);
-
+int		ft_digit_or_space(char *str);
+void	free_lst(t_list *lst);
 #endif

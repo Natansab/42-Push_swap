@@ -12,7 +12,7 @@
 
 NAME = checker
 
-SRC = main.c ft_ops.c circular_lst.c ope_tools.c
+SRC = main.c ft_ops.c circular_lst.c ope_tools.c ft_digit_or_space.c
 
 OBJ = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

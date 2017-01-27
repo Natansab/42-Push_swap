@@ -1,16 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   linear_to_circular_lst.c                           :+:      :+:    :+:   */
+/*   circular_lst.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/26 19:14:58 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/27 17:15:20 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+void	free_lst(t_list *lst)
+{
+	t_list	*tmp;
+
+	tmp = lst;
+	while (tmp && tmp->next && tmp->next != lst)
+	{
+		free(tmp);
+		tmp = tmp->next;
+	}
+	if (tmp)
+		free(tmp);
+}
 
 void	linear_to_circular_lst(t_list *begin_lst)
 {
