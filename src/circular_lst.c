@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/27 17:15:20 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/28 17:00:50 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	free_lst(t_list *lst)
 	tmp = lst;
 	while (tmp && tmp->next && tmp->next != lst)
 	{
-		free(tmp);
 		tmp = tmp->next;
+		free((tmp->previous)->content);
+		free(tmp->previous);
 	}
 	if (tmp)
 		free(tmp);

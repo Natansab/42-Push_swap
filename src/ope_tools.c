@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 20:46:19 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/27 17:16:09 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/28 18:46:06 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,23 @@ void	ft_is_sorted(t_list **start_a, t_list **start_b)
 	}
 	free_lst(*start_a);
 	free_lst(*start_b);
+	free(start_b);
 	if (error)
 		ft_putstr("KO\n");
 	else
 		ft_putstr("OK\n");
 }
 
-void	read_ope(t_list **start_a, t_list **start_b)
+void	read_ope(t_list **start_a)
 {
-	char	**line;
+	char	*line;
+	t_list **start_b;
 
-	line = malloc(sizeof(char*));
-	*line = malloc(5);
-	while(get_next_line(0, line))
+	start_b = malloc(sizeof(t_list*));
+	*start_b = NULL;
+	while(get_next_line_mhza(0, &line))
 	{
-		ft_operation(line[0], start_a, start_b);
+		ft_operation(line, start_a, start_b);
 		printf("stack a : ");
 		if (*start_a)
 			print_list(start_a);
@@ -51,9 +53,9 @@ void	read_ope(t_list **start_a, t_list **start_b)
 		if (*start_b)
 			print_list(start_b);
 		printf("\n");
+		free(line);
 	}
 	ft_is_sorted(start_a, start_b);
-	free(line);
 }
 
 void	ft_operation(char *line, t_list **start_a, t_list **start_b)
@@ -68,11 +70,9 @@ void	ft_operation(char *line, t_list **start_a, t_list **start_b)
 		ft_push_elem(start_a, start_b);
 	else if (!ft_strcmp(line, "pa") && *start_b)
 		ft_push_elem(start_b, start_a);
-	else if (ft_strcmp(line, "pa") && ft_strcmp(line, "pb") /*&& line[0] != '\0'*/)
+	else if (ft_strcmp(line, "pa") && ft_strcmp(line, "pb"))
 		{
-			free_lst(*start_a);
 			free_lst(*start_b);
-			printf("Erreur\n");
-			exit (0);
+			ft_exit_free_a(*start_a);
 		}
 }

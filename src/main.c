@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/27 17:19:38 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/28 18:51:37 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	print_list(t_list **start_a)
 
 void	ft_exit_free_a(t_list *start_a)
 {
-	ft_putstr("Erreur\n");
-	free_lst(start_a);
+	ft_putstr_fd("Error\n", 2);
+	(void)start_a;
+	// free_lst(start_a);
 	exit (0);
 }
 void	ft_is_elem_dup(t_list *stack_a)
@@ -56,40 +57,55 @@ void	ft_is_elem_dup(t_list *stack_a)
 	}
 }
 
-void	get_figures(int argc, char **argv, t_list **start_a)
+t_list		*get_figures(int argc, char **argv)
 {
 	int	value;
 	int	i;
+	size_t j;
+	size_t h;
+	t_list *start_a;
 
 	i = 0;
+	start_a = NULL;
 	while (i++ < argc - 1)
 		if (!ft_digit_or_space(argv[i]))
-			ft_exit_free_a(*start_a);
+			{
+				ft_putstr_fd("Error\n", 2);
+				exit (0);
+			}
 	i = 1;
+	j = 1;
 	while (i < argc)
 	{
-		value = ft_atoi(argv[argc - i]);
-		if (*start_a == NULL)
-			*start_a = ft_lstnew(&value, sizeof(int));
+		h = ft_strlen(argv[argc - i]);
+		while (argv[argc - i][h - j] && argv[argc - i][h - j] == ' ')
+			j++;
+		while (argv[argc - i][h - j] && ft_isdigit(argv[argc - i][h - j]))
+			j++;
+		while (argv[argc - i][h - j] && argv[argc - i][h - j] == ' ')
+			j++;
+		value = ft_atoi(&argv[argc - i][h - j + 1]);
+		if (start_a == NULL)
+			start_a = ft_lstnew(&value, sizeof(int));
 		else
-			ft_lstadd(start_a, ft_lstnew(&value , 4));
-		ft_is_elem_dup(*start_a);
-		i++;
+			ft_lstadd(&start_a, ft_lstnew(&value , 4));
+		ft_is_elem_dup(start_a);
+		if (h - j + 1 == 0)
+		{
+			i++;
+			j = 1;
+		}
 	}
+	return (start_a);
 }
 
 int		main(int argc, char **argv)
 {
-	t_list	**start_a;
-	t_list	**start_b;
+	t_list	*start_a;
 
-	start_a = malloc(sizeof(t_list*));
-	*start_a = NULL;
-	get_figures(argc, argv, start_a);
-	linear_to_circular_lst(*start_a);
-	print_list(start_a);
-	start_b = malloc(sizeof(t_list*));
-	*start_b = NULL;
-	read_ope(start_a, start_b);
+	start_a = get_figures(argc, argv);
+	linear_to_circular_lst(start_a);
+	print_list(&start_a);
+	read_ope(&start_a);
 return (0);
 }
