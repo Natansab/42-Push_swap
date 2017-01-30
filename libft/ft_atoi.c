@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/10 20:18:10 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/27 15:38:09 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/30 18:43:44 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "libft.h"
 #include <ctype.h>
 
-int	ft_atoi(const char *str)
+long	int	ft_atoi(const char *str)
 {
-	int i;
-	int neg;
-	int count;
+	int			i;
+	int			neg;
+	long int	count;
 
 	neg = 1;
 	i = 0;

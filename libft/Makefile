@@ -6,7 +6,7 @@
 #    By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/06 14:03:12 by nsabbah           #+#    #+#              #
-#    Updated: 2017/01/28 17:06:11 by nsabbah          ###   ########.fr        #
+#    Updated: 2017/01/30 18:46:04 by nsabbah          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC = ft_strcat.c ft_strncat.c  \
 	ft_strtrim.c ft_strsplit.c ft_strnequ.c \
 	ft_itoa.c ft_lstnew.c ft_lstdelone.c \
 	ft_lstdel.c ft_lstadd.c ft_lstiter.c \
-	ft_lstmap.c get_next_line.c get_next_line_mhza.c
+	ft_lstmap.c get_next_line.c
 
 
 OBJ = ft_strcat.o  ft_strcpy.o  ft_strdup.o ft_strndup.o ft_strlen.o \
@@ -50,7 +50,7 @@ OBJ = ft_strcat.o  ft_strcpy.o  ft_strdup.o ft_strndup.o ft_strlen.o \
 	ft_putnbr_fd.o ft_striteri.o ft_strmap.o ft_strmapi.o ft_strequ.o \
 	ft_strsub.o ft_strjoin.o ft_strtrim.o ft_strsplit.o ft_strnequ.o ft_itoa.o \
 	ft_lstnew.o ft_lstdelone.o ft_lstdel.o ft_lstadd.o ft_lstiter.o ft_lstmap.o \
-	get_next_line.o get_next_line_mhza.o
+	get_next_line.o
 
 all: $(NAME)
 

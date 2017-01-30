@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:46:38 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/28 19:11:59 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/30 18:42:22 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,18 +61,19 @@ void	ft_push_elem(t_list **src_pile, t_list **dst_pile)
 	*src_pile = pivot;
 }
 
-void ft_swap_elem(char *line, t_list **start_a, t_list **start_b)
+void	ft_swap_elem(char *line, t_list **start_a, t_list **start_b)
 {
 	int pivot;
 
-	if ((!ft_strcmp(line, "sa") || !ft_strcmp(line, "ss")) && nb_of_elem(*start_a) > 1)
+	if ((!ft_strcmp(line, "sa") || !ft_strcmp(line, "ss")) &&
+		nb_of_elem(*start_a) > 1)
 	{
 		pivot = *((int*)(*start_a)->content);
 		*((int*)(*start_a)->content) = *((int*)((*start_a)->next)->content);
 		*((int*)((*start_a)->next)->content) = pivot;
 	}
-
-	if ((!ft_strcmp(line, "sb") || !ft_strcmp(line, "ss")) && nb_of_elem(*start_b) > 1)
+	if ((!ft_strcmp(line, "sb") || !ft_strcmp(line, "ss")) &&
+		nb_of_elem(*start_b) > 1)
 	{
 		pivot = *((int*)(*start_b)->content);
 		*((int*)(*start_b)->content) = *((int*)((*start_b)->next)->content);
@@ -82,16 +83,20 @@ void ft_swap_elem(char *line, t_list **start_a, t_list **start_b)
 
 void	ft_rotate_elem(char *line, t_list **start_a, t_list **start_b)
 {
-	if ((!ft_strcmp(line, "ra") || !ft_strcmp(line, "rr")) && nb_of_elem(*start_a) > 1)
+	if ((!ft_strcmp(line, "ra") || !ft_strcmp(line, "rr")) &&
+		nb_of_elem(*start_a) > 1)
 		(*start_a) = (*start_a)->next;
-	if ((!ft_strcmp(line, "rb") || !ft_strcmp(line, "rr")) && nb_of_elem(*start_b) > 1)
+	if ((!ft_strcmp(line, "rb") || !ft_strcmp(line, "rr")) &&
+		nb_of_elem(*start_b) > 1)
 		(*start_b) = (*start_b)->next;
 }
 
 void	ft_rev_rotate_elem(char *line, t_list **start_a, t_list **start_b)
 {
-	if ((!ft_strcmp(line, "rra") || !ft_strcmp(line, "rrr")) && nb_of_elem(*start_a) > 1)
+	if ((!ft_strcmp(line, "rra") || !ft_strcmp(line, "rrr")) &&
+		nb_of_elem(*start_a) > 1)
 		(*start_a) = (*start_a)->previous;
-	if ((!ft_strcmp(line, "rrb") || !ft_strcmp(line, "rrr")) && nb_of_elem(*start_b) > 1)
+	if ((!ft_strcmp(line, "rrb") || !ft_strcmp(line, "rrr")) &&
+		nb_of_elem(*start_b) > 1)
 		(*start_b) = (*start_b)->previous;
 }

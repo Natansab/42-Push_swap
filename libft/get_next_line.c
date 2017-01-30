@@ -5,80 +5,73 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/24 17:35:41 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/24 19:21:15 by nsabbah          ###   ########.fr       */
+/*   Created: 2017/01/30 18:44:36 by nsabbah           #+#    #+#             */
+/*   Updated: 2017/01/30 18:45:09 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-int	ft_stock2line(char **stock, char **line)
+static int		ft_failed(char **buffer, char **stock)
 {
-	int len;
-
-	if (ft_strchr(*stock, '\n') != NULL)
-	{
-		len = ft_strchr(*stock, '\n') - *stock;
-		line[0] = ft_strsub(*stock, 0, len);
-		*stock = ft_strchr(*stock, '\n') + 1;
-		return (1);
-	}
-	line[0] = ft_strdup(*stock);
-	*stock = NULL;
-	return (0);
+	ft_strdel(buffer);
+	ft_strdel(stock);
+	return (READ_ERROR);
 }
 
-int	read_f(char **line, const int fd, char **stock, char *str)
+static int		ft_eof(char **line, char **stock, char **buffer)
 {
-	char	*tmp;
-	int		len;
-	int		ret;
-
-	while ((ret = read(fd, str, BUFF_SIZE)))
+	if (ft_strlen(*stock))
 	{
-		if (ret == -1)
-			return (ret);
-		str[ret] = '\0';
-		tmp = ft_strdup(line[0]);
-		free(line[0]);
-		line[0] = ft_strjoin(tmp, str);
-		free(tmp);
-		if (ft_strchr(line[0], '\n'))
-		{
-			len = ft_strchr(line[0], '\n') - line[0];
-			*stock = ft_strdup(ft_strchr(line[0], '\n') + 1);
-			tmp = ft_strdup(line[0]);
-			free(line[0]);
-			line[0] = ft_strsub(tmp, 0, len);
-			free(tmp);
-			break ;
-		}
+		if (!(*line = ft_strdup(*stock)))
+			return (ft_failed(buffer, stock));
+		ft_strdel(stock);
+		ft_strdel(buffer);
+		return (READ_LINE);
 	}
-	return (ret);
+	return (READ_END);
 }
 
-int	get_next_line(const int fd, char **line)
+unsigned int	ft_strchri(char *stock, char c)
 {
-	int			ret;
-	static char	*stock = NULL;
-	char		*str;
+	if (ft_strchr(stock, c) != NULL)
+		return ((ft_strchr(stock, c) - stock));
+	return (READ_ERROR);
+}
 
-	if (line == NULL || fd < 0 || BUFF_SIZE < 1)
-		return (-1);
-	line[0] = ft_strnew(BUFF_SIZE);
-	if (stock != NULL)
-		if (ft_stock2line(&stock, &line[0]))
-			return (1);
-	str = ft_strnew(BUFF_SIZE);
-	if ((ret = read_f(&line[0], fd, &stock, str)) == -1)
-		return (-1);
-	free(str);
-	if (ret == 0 && ft_strlen(line[0]) == 0)
-		return (0);
-	return (1);
+static int		ft_set_stk(char *tmp, char **stk, char **buffer)
+{
+	ft_strdel(stk);
+	if (!(*stk = ft_strdup(tmp)))
+		return (ft_failed(buffer, stk));
+	ft_strdel(&tmp);
+	return (READ_LINE);
+}
+
+int				get_next_line(const int fd, char **line)
+{
+	static char		*stk = NULL;
+	char			*buffer;
+	int				ret;
+	char			*tmp;
+
+	if (fd < 0 || !line || BUFF_SIZE < 1 || BUFF_SIZE > 10000000)
+		return (READ_ERROR);
+	stk = (!stk) ? ft_strnew(BUFF_SIZE) : stk;
+	while (!(ft_strchr(stk, '\n')))
+	{
+		buffer = ft_strnew(BUFF_SIZE);
+		if (!(ret = read(fd, buffer, BUFF_SIZE)))
+			return (ft_eof(line, &stk, &buffer));
+		if (ret == -1 || !stk || !(tmp = ft_strjoin(stk, buffer)) ||
+		ft_set_stk(tmp, &stk, &buffer) == -1)
+			return (ft_failed(&buffer, &stk));
+		ft_strdel(&buffer);
+	}
+	if (!(*line = ft_strsub(stk, 0, ft_strchri(stk, '\n'))))
+		return (ft_failed(&buffer, &stk));
+	if (!(tmp = ft_strsub(stk, ft_strchri(stk, '\n') + 1, ft_strlen(stk))) ||
+	ft_set_stk(tmp, &stk, &buffer) == -1)
+		return (ft_failed(&buffer, &stk));
+	return (READ_LINE);
 }

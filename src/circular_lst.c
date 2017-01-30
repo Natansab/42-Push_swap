@@ -6,11 +6,42 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/28 19:36:05 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/01/30 18:40:46 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
+
+void	ft_exit_free_a(t_list *start_a)
+{
+	ft_putstr_fd("Error\n", 2);
+	(void)start_a;
+	// free_lst(start_a);
+	exit(0);
+}
+
+void	print_list(t_list **start_a)
+{
+	int		i;
+	t_list	*tmp;
+
+	if (!(*start_a))
+	{
+		ft_putstr("\n");
+		return ;
+	}
+	tmp = *start_a;
+	i = 0;
+	while (tmp->next != *start_a && tmp->next)
+	{
+		ft_putnbr(*((int*)(tmp)->content));
+		ft_putstr(" ");
+		tmp = tmp->next;
+		i++;
+	}
+	ft_putnbr(*((int*)(tmp)->content));
+	ft_putstr("\n");
+}
 
 void	free_lst(t_list *lst)
 {
@@ -57,9 +88,9 @@ int		nb_of_elem(t_list *begin_lst)
 	i = 1;
 	tmp = begin_lst;
 	while (tmp->next && tmp->next != begin_lst)
-		{
-			i++;
-			tmp = tmp->next;
-		}
+	{
+		i++;
+		tmp = tmp->next;
+	}
 	return (i);
 }
