@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/01 15:53:47 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/03 16:51:12 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	print_list(t_list **start_a)
 	while (tmp->next != *start_a && tmp->next)
 	{
 		ft_putnbr(*((int*)(tmp)->content));
-		ft_putstr(" ");
+		ft_putstr(" (");
+		ft_putnbr(tmp->lot);
+		// printf("(%i) ", tmp->lot);
+		ft_putstr(") ");
 		tmp = tmp->next;
 		i++;
 	}

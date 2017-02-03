@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 14:03:09 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/30 18:45:20 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/03 16:36:17 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef	struct	s_point
 typedef struct	s_list
 {
 	void			*content;
+	int				lot;
 	size_t			content_size;
 	struct s_list	*next;
 	struct s_list	*previous;

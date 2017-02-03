@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 12:29:42 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/02 19:12:09 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/03 17:14:59 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	find_med_lst2(t_list *start_a, int length)
 	i = 0;
 	median = 0;
 	tmp = start_a;
+	// printf("\nstack a dans mediane vaut : \n");
+	// print_list(&start_a);
 	while (i < length)
 	{
 		median = (*(int*)tmp->content);
@@ -61,22 +63,32 @@ int	find_med_lst2(t_list *start_a, int length)
 		sup = 0;
 		inf = 0;
 		j = 0;
-		// printf("mediaaaane vaut %i\n", median);
+		// printf("length vaut %i\n", length);
 		while (j < length)
 		{
 			sup = (median > (*(int*)tmp2->content)) ? sup + 1 : sup;
 			inf = (median < (*(int*)tmp2->content)) ? inf + 1 : inf;
+			// if (median == 437)
+			// {
 			// printf("\n\ncontent vaut %i\n", median);
 			// printf("inf vaut %i\n", inf);
 			// printf("sup vaut %i\n", sup);
 			// printf("et j et length valent %i %i\n", j, length);
-
-			if (j == (length - 1) && (((sup == inf + 1) && (length % 3)) ||
+			// printf("length %% 3 vaut %i\n", length % 3);
+			// }
+			// if (median == 16)
+			// {
+			// 				printf("------ median vaut %i #######\n", median);
+			//
+			// 				printf("inf vaut %i\n", inf);
+			// 				printf("sup vaut %i\n", sup);
+			// 	}
+			if (j == (length - 1) && (((sup == inf + 1) && !(length % 2)) ||
 				((sup == inf) && (length % 2))))
 			{
 				// printf("####### median vaut %i #######\n", median);
-				// printf("inf vaut %i", inf);
-				// printf("sup vaut %i", sup);
+				// printf("inf vaut %i\n", inf);
+				// printf("sup vaut %i\n", sup);
 				return(median);
 			}
 
@@ -86,5 +98,5 @@ int	find_med_lst2(t_list *start_a, int length)
 		tmp = tmp->next;
 		i++;
 	}
-	return (0);
+	return (median);
 }
