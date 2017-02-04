@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/03 14:25:08 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/04 17:39:30 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		main(int argc, char **argv)
 		order_in_place_a(&start_a);
 		return (0);
 	}
-	split_list(start_a, median, nb_of_elem(start_a), 0);
+	ft_main_algo(start_a);
+	// split_list(start_a, median);
 	return (0);
 }
