@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:23:43 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/03 17:29:56 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/04 15:31:08 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,21 @@ void	get_rid_of_a(t_list **start_a, t_list **start_b, int median)
 
 	taille = (*start_a)->lot;
 	lot = 0;
+	if (taille == 2)
+	{
+		if ((*(int*)(*start_a)->content) > (*(int*)(*start_a)->next->content))
+				ft_do_swap(start_a);
+		(*start_a)->lot = 1;
+		return ;
+	}
 	while (i < taille)
 	{
-		if ((*(int*)(*start_a)->content) < median)
+		if ((*(int*)(*start_a)->content) >= median)
 		{
 			(*start_a) = (*start_a)->next;
 			next++;
 		}
-		else if ((*(int*)(*start_a)->content) >= median)
+		else if ((*(int*)(*start_a)->content) < median)
 		{
 			lot++;
 			// printf("\nstack b vaut : \n");
@@ -45,7 +52,7 @@ void	get_rid_of_a(t_list **start_a, t_list **start_b, int median)
 		next--;
 
 	}
-	(*start_a)->lot = (*start_a)->lot - lot;
+	(*start_a)->lot = taille - lot;
 }
 
 
@@ -60,7 +67,7 @@ void	get_rid_of_b(t_list **start_a, t_list **start_b, int median)
 
 	taille = (*start_b)->lot;
 	lot = 0;
-	while (i < taille)
+	while ((i < taille))
 	{
 		if ((*(int*)(*start_b)->content) < median)
 		{
@@ -84,7 +91,17 @@ void	get_rid_of_b(t_list **start_a, t_list **start_b, int median)
 		next--;
 
 	}
-	(*start_b)->lot = (*start_b)->lot - lot;
+	if (taille == 1)
+		return ;
+	t_list *tmp;
+	tmp = *start_b;
+	i = 0;
+	while (taille - lot - i && tmp)
+	{
+		tmp->lot = taille - lot - i;
+		tmp = tmp->next;
+		i++;
+	}
 }
 
 int	is_first_a_sorted(t_list *start_a)
@@ -259,11 +276,10 @@ printf("\n######### Apres tri de a #########\n");
 			printf("\nstack b vaut : \n");
 			print_list(start_b);
 
-
+	printf("\n######### Apres Get rid of a #########\n");
 	while ((start_a)->lot >= 2)
 		get_rid_of_a(&start_a, start_b, find_med_lst2(start_a, start_a->lot));
 
-	printf("\n######### Apres Get rid of a #########\n");
 			order_in_place_a(&start_a);
 
 			printf("\nstack a vaut : \n");
