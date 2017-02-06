@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/06 14:12:55 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/06 17:42:54 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,14 +99,14 @@ int		main(int argc, char **argv)
 	start_a = get_figures(argc, argv);
 	median = find_med_lst(start_a);
 	linear_to_circular_lst(start_a);
-	// if (nb_of_elem(start_a) <= 3)
-	// {
-	// 	order_in_place_a(&start_a);
-	// 	return (0);
-	// }
 	if (!(opsresult = malloc((500 + nb_of_elem(start_a)) * 10)))
 		return (0);
+	if (nb_of_elem(start_a) <= 3)
+		order_in_place_a(&start_a, opsresult);
+	else
 	ft_main_algo(start_a, opsresult);
+	ft_optimize_ops(opsresult);
 	ft_putstr(opsresult);
+	free(opsresult);
 	return (0);
 }

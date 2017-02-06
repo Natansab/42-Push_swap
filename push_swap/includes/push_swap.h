@@ -6,7 +6,7 @@
 /*   By: ewallner <ewallner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:13:07 by ewallner          #+#    #+#             */
-/*   Updated: 2017/02/06 14:15:21 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/06 14:29:07 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ void	ft_do_rotate(t_list **stack);
 void	ft_do_rev_rotate(t_list **stack);
 void	order_in_place_a(t_list **start_a, char *opsresult);
 void	ft_main_algo(t_list *start_a, char *opsresult);
+void	ft_optimize_ops(char *opsresult);
 #endif
