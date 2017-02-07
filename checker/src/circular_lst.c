@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/30 18:40:46 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 00:21:28 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,12 @@ int		nb_of_elem(t_list *begin_lst)
 	int		i;
 
 	if (!(begin_lst))
+	{
 		return (0);
+	}
 	i = 1;
 	tmp = begin_lst;
-	while (tmp->next && tmp->next != begin_lst)
+	while (tmp && tmp->next && tmp->next != begin_lst)
 	{
 		i++;
 		tmp = tmp->next;

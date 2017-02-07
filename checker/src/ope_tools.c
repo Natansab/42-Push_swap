@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 20:46:19 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/30 18:45:27 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 00:25:47 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	read_ope(t_list **start_a, char **argv)
 
 	if ((start_b = ft_memalloc(sizeof(t_list*))) == NULL)
 		exit(0);
+	*start_b = NULL;
 	while (get_next_line(0, &line))
 	{
 		ft_operation(line, start_a, start_b);

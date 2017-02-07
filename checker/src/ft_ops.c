@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:46:38 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/30 18:42:22 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 00:28:30 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@
 
 void	ft_push_elem_two(t_list **src_pile, t_list **dst_pile)
 {
-	if (nb_of_elem(*dst_pile) == 0)
+	int nb;
+
+	nb = nb_of_elem(*dst_pile);
+	if (nb == 0)
 	{
 		*dst_pile = *src_pile;
 		(*dst_pile)->next = NULL;
 		(*dst_pile)->previous = NULL;
 	}
-	else if (nb_of_elem(*dst_pile) == 1)
+	else if (nb == 1)
 	{
 		(*src_pile)->previous = (*dst_pile);
 		(*src_pile)->next = (*dst_pile);
@@ -30,7 +33,7 @@ void	ft_push_elem_two(t_list **src_pile, t_list **dst_pile)
 		(*dst_pile)->next = (*src_pile);
 		(*dst_pile) = (*src_pile);
 	}
-	else if (nb_of_elem(*dst_pile) > 1)
+	else if (nb > 1)
 	{
 		(*src_pile)->previous = (*dst_pile)->previous;
 		(*src_pile)->next = (*dst_pile);
