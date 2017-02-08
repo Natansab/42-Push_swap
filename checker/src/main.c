@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 00:28:20 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:47:27 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,15 @@ size_t	increment_j(int argc, char **argv, int i, size_t j)
 	return (j);
 }
 
-void	get_figures_two(int argc, char **argv)
+void	get_figures_init(int argc, char **argv)
 {
 	int i;
 
 	if (argc == 1 || (argc == 2 && !ft_strcmp(argv[1], "-v")))
+	{
+		ft_putstr_fd("Error\n", 2);
 		exit(0);
+	}
 	i = (!ft_strcmp(argv[1], "-v")) ? 1 : 0;
 	while (i++ < argc - 1)
 		if (!ft_digit_or_space(argv[i]))
@@ -69,7 +72,7 @@ t_list	*get_figures(int argc, char **argv)
 	t_list		*start_a;
 
 	start_a = NULL;
-	get_figures_two(argc, argv);
+	get_figures_init(argc, argv);
 	i = 1;
 	j = 1;
 	while (i < argc)

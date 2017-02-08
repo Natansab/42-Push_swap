@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 19:11:06 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 00:21:28 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:48:26 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 void	ft_exit_free_a(t_list *start_a)
 {
 	ft_putstr_fd("Error\n", 2);
-	(void)start_a;
-	// free_lst(start_a);
+	free_lst(start_a);
 	exit(0);
 }
 

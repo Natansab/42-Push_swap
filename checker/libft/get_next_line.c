@@ -6,72 +6,79 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:44:36 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/01/30 18:45:09 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:03:17 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		ft_failed(char **buffer, char **stock)
+int		buffer_to_stock(int fd, char **stock, int	*bytes_read)
 {
-	ft_strdel(buffer);
-	ft_strdel(stock);
-	return (READ_ERROR);
+	char	*buffer;
+	char	*tmp;
+
+	buffer = (char*)malloc(sizeof(char) * BUFF_SIZE + 1);
+	if(buffer == NULL)
+		return (0);
+	*bytes_read = read(fd, buffer, BUFF_SIZE);
+	if (*bytes_read == -1)
+	{
+		free(buffer);
+		return(0);
+	}
+	buffer[*bytes_read] = '\0';
+	tmp = ft_strjoin(*stock, buffer);
+	free(*stock);
+	*stock = tmp;
+	free(buffer);
+	return (1);
 }
 
-static int		ft_eof(char **line, char **stock, char **buffer)
+void	cut_stock(char **stock, char *str)
+{
+	char		*tmp;
+	tmp = ft_strdup(str + 1);
+	ft_strdel(stock);
+	*stock = tmp;
+}
+
+int		file_end(char **line, char **stock)
 {
 	if (ft_strlen(*stock))
 	{
-		if (!(*line = ft_strdup(*stock)))
-			return (ft_failed(buffer, stock));
+		*line = ft_strdup(*stock);
 		ft_strdel(stock);
-		ft_strdel(buffer);
-		return (READ_LINE);
+		return (1);
 	}
-	return (READ_END);
+	return (0);
 }
 
-unsigned int	ft_strchri(char *stock, char c)
+int		error_handling(char **stock)
 {
-	if (ft_strchr(stock, c) != NULL)
-		return ((ft_strchr(stock, c) - stock));
-	return (READ_ERROR);
+	if(stock)
+		ft_strdel(stock);
+	return (-1);
 }
 
-static int		ft_set_stk(char *tmp, char **stk, char **buffer)
+int			get_next_line(const int fd, char **line)
 {
-	ft_strdel(stk);
-	if (!(*stk = ft_strdup(tmp)))
-		return (ft_failed(buffer, stk));
-	ft_strdel(&tmp);
-	return (READ_LINE);
-}
+	static char		*stock = NULL;
+	char	*str;
+	int		bytes_read;
 
-int				get_next_line(const int fd, char **line)
-{
-	static char		*stk = NULL;
-	char			*buffer;
-	int				ret;
-	char			*tmp;
-
-	if (fd < 0 || !line || BUFF_SIZE < 1 || BUFF_SIZE > 10000000)
-		return (READ_ERROR);
-	stk = (!stk) ? ft_strnew(BUFF_SIZE) : stk;
-	while (!(ft_strchr(stk, '\n')))
+	if (fd < 0 || !(line) || BUFF_SIZE < 0)
+		return (-1);
+	if (!(stock))
+		stock = ft_strnew(0);
+	while(!(ft_strchr(stock, '\n')))
 	{
-		buffer = ft_strnew(BUFF_SIZE);
-		if (!(ret = read(fd, buffer, BUFF_SIZE)))
-			return (ft_eof(line, &stk, &buffer));
-		if (ret == -1 || !stk || !(tmp = ft_strjoin(stk, buffer)) ||
-		ft_set_stk(tmp, &stk, &buffer) == -1)
-			return (ft_failed(&buffer, &stk));
-		ft_strdel(&buffer);
+		if (!(buffer_to_stock(fd, &stock, &bytes_read)))
+			return (error_handling(&stock));
+		if(bytes_read == 0)
+			return(file_end(line, &stock));
 	}
-	if (!(*line = ft_strsub(stk, 0, ft_strchri(stk, '\n'))))
-		return (ft_failed(&buffer, &stk));
-	if (!(tmp = ft_strsub(stk, ft_strchri(stk, '\n') + 1, ft_strlen(stk))) ||
-	ft_set_stk(tmp, &stk, &buffer) == -1)
-		return (ft_failed(&buffer, &stk));
-	return (READ_LINE);
+	str = ft_strchr(stock, '\n');
+	*line = ft_strsub(stock, 0, str - stock);
+	cut_stock(&stock, str);
+	return(1);
 }
