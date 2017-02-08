@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/06 14:03:09 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/03 16:36:17 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 12:11:23 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,5 @@ void			ft_lstadd(t_list **alst, t_list *new);
 void			ft_strdel(char **as);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int				get_next_line(const int fd, char **line);
-
+int				ft_abs(int nb);
 #endif

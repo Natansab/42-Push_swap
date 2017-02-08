@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 11:40:17 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/07 17:48:59 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 15:02:18 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_small_algo(t_list *start_a, char *opsresult)
 
 	start_b = malloc(sizeof(t_list*));
 
-	if (nb_of_elem(start_a) <= 2)
+	if (nb_of_elem(start_a) <= 3)
 		order_in_place_a(&start_a, opsresult);
 	else
 		{
@@ -117,4 +117,5 @@ void	ft_small_algo(t_list *start_a, char *opsresult)
 				ft_strcat(opsresult, "sb\npa\npa\n");
 			}
 		}
+	free(start_b);
 }

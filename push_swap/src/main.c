@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/24 18:12:07 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/06 17:42:54 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 15:20:43 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,18 @@ int		main(int argc, char **argv)
 	linear_to_circular_lst(start_a);
 	if (!(opsresult = malloc((500 + nb_of_elem(start_a)) * 10)))
 		return (0);
-	if (nb_of_elem(start_a) <= 3)
-		order_in_place_a(&start_a, opsresult);
+	if (is_first_a_sorted(start_a))
+	{
+		free_lst(start_a);
+		return (0);
+	}
+	else if (nb_of_elem(start_a) <= 5)
+		ft_small_algo(start_a, opsresult);
 	else
-	ft_main_algo(start_a, opsresult);
+		ft_main_algo(start_a, opsresult);
 	ft_optimize_ops(opsresult);
 	ft_putstr(opsresult);
+	free_lst(start_a);
 	free(opsresult);
 	return (0);
 }

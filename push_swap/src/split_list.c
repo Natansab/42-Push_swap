@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:23:43 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/06 14:13:41 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 15:10:14 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,12 @@ void	get_rid_of_b(t_list **start_a, t_list **start_b, int median, char *opsresul
 	next = 0;
 	i = 0;
 	taille = (*start_b)->lot;
+	// printf("median vaut %i\n", median);
+	// printf("en rentrant ici start_b nb of elem vaut %i\n", nb_of_elem(*start_b));
 	lot = 0;
 	while ((i < taille))
 	{
-		if ((*(int*)(*start_b)->content) < median)
+		if ((*(int*)(*start_b)->content) < median && (*start_b)->next)
 		{
 			(*start_b) = (*start_b)->next;
 			ft_strcat(opsresult, "rb\n");
@@ -86,6 +88,8 @@ void	get_rid_of_b(t_list **start_a, t_list **start_b, int median, char *opsresul
 			(*start_a)->lot = lot;
 		}
 		i++;
+	// printf("en sortant ici start_b nb of elem vaut %i\n", nb_of_elem(*start_b));
+	// print_list(start_b);
 	}
 	while (next && *start_b && nb_of_elem(*start_b) != 1)
 	{
@@ -118,55 +122,6 @@ int	is_first_a_sorted(t_list *start_a)
 		tmp = tmp->next;
 	}
 	return (1);
-}
-
-void	order_in_place_a(t_list **start_a, char *opsresult)
-{
-	if (is_first_a_sorted(*start_a))
-		return ;
-	else if (nb_of_elem(*start_a) == 2)
-	{
-		ft_do_swap(start_a);
-		ft_strcat(opsresult, "sa\n");
-	}
-	else
-	{
-		if (*(int*)(*start_a)->content > *(int*)(*start_a)->next->content
-				&& *(int*)(*start_a)->content < *(int*)(*start_a)->previous->content)
-		{
-			ft_do_swap(start_a);
-			ft_strcat(opsresult, "sa\n");
-		}
-		else if (*(int*)(*start_a)->content < *(int*)(*start_a)->next->content
-				&& *(int*)(*start_a)->content > *(int*)(*start_a)->previous->content)
-		{
-			ft_strcat(opsresult, "rra\n");
-			ft_do_rev_rotate(start_a);
-		}
-		else if (*(int*)(*start_a)->content > *(int*)(*start_a)->next->content
-				&& *(int*)(*start_a)->content > *(int*)(*start_a)->previous->content)
-		{
-			if (*(int*)(*start_a)->previous->content > *(int*)(*start_a)->next->content)
-			{
-				ft_strcat(opsresult, "ra\n");
-				ft_do_rotate(start_a);
-			}
-			else
-			{
-				ft_strcat(opsresult, "sa\nrra\n");
-				ft_do_swap(start_a);
-				ft_do_rev_rotate(start_a);
-			}
-		}
-		else if (*(int*)(*start_a)->content < *(int*)(*start_a)->next->content
-				&& *(int*)(*start_a)->content < *(int*)(*start_a)->previous->content)
-		{
-			ft_strcat(opsresult, "ra\nsa\nrra\n");
-			ft_do_rotate(start_a);
-			ft_do_swap(start_a);
-			ft_do_rev_rotate(start_a);
-		}
-	}
 }
 
 void	split_a_first(t_list **start_a, t_list **start_b, int median, char *opsresult)
@@ -215,16 +170,16 @@ void	ft_main_algo(t_list *start_a, char *opsresult)
 
 	while (*start_b)
 	{
+		// printf("\n######### Apres Get rid of b #########\n");
 		get_rid_of_b(&start_a, start_b, find_med_lst2(*start_b, (*start_b)->lot), opsresult);
 
-		// printf("\n######### Apres Get rid of b #########\n");
 		order_in_place_a(&start_a, opsresult);
 
 		// printf("\nstack a vaut : \n");
 		// print_list(&start_a);
 		// printf("\nstack b vaut : \n");
 		// print_list(start_b);
-
+		//
 		// printf("\n######### Apres Get rid of a #########\n");
 		while ((start_a)->lot >= 3)
 			get_rid_of_a(&start_a, start_b, find_med_lst2(start_a, start_a->lot), opsresult);
@@ -242,5 +197,5 @@ void	ft_main_algo(t_list *start_a, char *opsresult)
 	// print_list(&start_a);
 	// printf("\nstack b vaut : \n");
 	// print_list(start_b);
-
+	free(start_b);
 }
