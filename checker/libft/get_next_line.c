@@ -6,25 +6,25 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:44:36 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 11:03:17 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:55:10 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int		buffer_to_stock(int fd, char **stock, int	*bytes_read)
+int		buffer_to_stock(int fd, char **stock, int *bytes_read)
 {
 	char	*buffer;
 	char	*tmp;
 
 	buffer = (char*)malloc(sizeof(char) * BUFF_SIZE + 1);
-	if(buffer == NULL)
+	if (buffer == NULL)
 		return (0);
 	*bytes_read = read(fd, buffer, BUFF_SIZE);
 	if (*bytes_read == -1)
 	{
 		free(buffer);
-		return(0);
+		return (0);
 	}
 	buffer[*bytes_read] = '\0';
 	tmp = ft_strjoin(*stock, buffer);
@@ -37,6 +37,7 @@ int		buffer_to_stock(int fd, char **stock, int	*bytes_read)
 void	cut_stock(char **stock, char *str)
 {
 	char		*tmp;
+
 	tmp = ft_strdup(str + 1);
 	ft_strdel(stock);
 	*stock = tmp;
@@ -55,30 +56,30 @@ int		file_end(char **line, char **stock)
 
 int		error_handling(char **stock)
 {
-	if(stock)
+	if (stock)
 		ft_strdel(stock);
 	return (-1);
 }
 
-int			get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line)
 {
 	static char		*stock = NULL;
-	char	*str;
-	int		bytes_read;
+	char			*str;
+	int				bytes_read;
 
 	if (fd < 0 || !(line) || BUFF_SIZE < 0)
 		return (-1);
 	if (!(stock))
 		stock = ft_strnew(0);
-	while(!(ft_strchr(stock, '\n')))
+	while (!(ft_strchr(stock, '\n')))
 	{
 		if (!(buffer_to_stock(fd, &stock, &bytes_read)))
 			return (error_handling(&stock));
-		if(bytes_read == 0)
-			return(file_end(line, &stock));
+		if (bytes_read == 0)
+			return (file_end(line, &stock));
 	}
 	str = ft_strchr(stock, '\n');
 	*line = ft_strsub(stock, 0, str - stock);
 	cut_stock(&stock, str);
-	return(1);
+	return (1);
 }

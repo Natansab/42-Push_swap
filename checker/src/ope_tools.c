@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 20:46:19 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 11:50:49 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:55:43 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,6 @@ void	ft_is_sorted(t_list **start_a, t_list **start_b)
 			error = 1;
 		tmp = tmp->next;
 	}
-	int i;
-	i = 0;
-	while (i >= 0)
-		i++;
 	free_lst(*start_a);
 	free_lst(*start_b);
 	free(start_b);

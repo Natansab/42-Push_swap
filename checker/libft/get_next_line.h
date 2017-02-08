@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/30 18:44:46 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 11:06:35 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 11:52:47 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include "libft.h"
-#define BUFF_SIZE 10
+# define BUFF_SIZE 10
 
 int		get_next_line(const int fd, char **line);
 
