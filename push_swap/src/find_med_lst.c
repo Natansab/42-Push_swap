@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 12:29:42 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/03 17:14:59 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 17:03:05 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,89 +14,54 @@
 
 int	find_med_lst(t_list *start_a)
 {
-	int		median;
-	t_list*	tmp;
-	t_list* tmp2;
-	int		sup;
-	int		inf;
+	t_env	p;
 
-	median = 0;
-	tmp = start_a;
-	while (tmp)
+	ft_bzero(&p, sizeof(p));
+	p.tmp = start_a;
+	while (p.tmp)
 	{
-		median = (*(int*)tmp->content);
-		tmp2 = start_a;
-		sup = 0;
-		inf = 0;
-		while (tmp2)
+		p.median = (*(int*)p.tmp->content);
+		p.tmp2 = start_a;
+		p.sup = 0;
+		p.inf = 0;
+		while (p.tmp2)
 		{
-			sup = (median >= (*(int*)tmp2->content)) ? sup + 1 : sup;
-			inf = (median <= (*(int*)tmp2->content)) ? inf + 1 : inf;
-			if (!tmp2->next && (sup == inf || sup == inf - 1 || sup == inf + 1))
-				return(median);
-			tmp2 = tmp2->next;
+			p.sup = (p.median >= (*(int*)p.tmp2->content)) ? p.sup + 1 : p.sup;
+			p.inf = (p.median <= (*(int*)p.tmp2->content)) ? p.inf + 1 : p.inf;
+			if (!p.tmp2->next && (p.sup == p.inf || p.sup == p.inf - 1 ||
+					p.sup == p.inf + 1))
+				return (p.median);
+			p.tmp2 = p.tmp2->next;
 		}
-		tmp = tmp->next;
+		p.tmp = p.tmp->next;
 	}
-	return (median);
+	return (p.median);
 }
 
 int	find_med_lst2(t_list *start_a, int length)
 {
-	int		median;
-	t_list*	tmp;
-	t_list* tmp2;
-	int		sup;
-	int		inf;
-	int		i;
-	int		j;
+	t_env	p;
 
-	i = 0;
-	median = 0;
-	tmp = start_a;
-	// printf("\nstack a dans mediane vaut : \n");
-	// print_list(&start_a);
-	while (i < length)
+	ft_bzero(&p, sizeof(p));
+	p.tmp = start_a;
+	while (p.i < length)
 	{
-		median = (*(int*)tmp->content);
-		tmp2 = start_a;
-		sup = 0;
-		inf = 0;
-		j = 0;
-		// printf("length vaut %i\n", length);
-		while (j < length)
+		p.median = (*(int*)p.tmp->content);
+		p.tmp2 = start_a;
+		p.sup = 0;
+		p.inf = 0;
+		p.j = -1;
+		while (p.j++ < length)
 		{
-			sup = (median > (*(int*)tmp2->content)) ? sup + 1 : sup;
-			inf = (median < (*(int*)tmp2->content)) ? inf + 1 : inf;
-			// if (median == 437)
-			// {
-			// printf("\n\ncontent vaut %i\n", median);
-			// printf("inf vaut %i\n", inf);
-			// printf("sup vaut %i\n", sup);
-			// printf("et j et length valent %i %i\n", j, length);
-			// printf("length %% 3 vaut %i\n", length % 3);
-			// }
-			// if (median == 16)
-			// {
-			// 				printf("------ median vaut %i #######\n", median);
-			//
-			// 				printf("inf vaut %i\n", inf);
-			// 				printf("sup vaut %i\n", sup);
-			// 	}
-			if (j == (length - 1) && (((sup == inf + 1) && !(length % 2)) ||
-				((sup == inf) && (length % 2))))
-			{
-				// printf("####### median vaut %i #######\n", median);
-				// printf("inf vaut %i\n", inf);
-				// printf("sup vaut %i\n", sup);
-				return(median);
-			}
-
-			tmp2 = tmp2->next;
-			j++;
+			p.sup = (p.median > (*(int*)p.tmp2->content)) ? p.sup + 1 : p.sup;
+			p.inf = (p.median < (*(int*)p.tmp2->content)) ? p.inf + 1 : p.inf;
+			if (p.j == (length - 1) && (((p.sup == p.inf + 1) &&
+				!(length % 2)) || ((p.sup == p.inf) && (length % 2))))
+				return (p.median);
+			p.tmp2 = p.tmp2->next;
 		}
-		tmp = tmp->next;
-		i++;
+		p.tmp = p.tmp->next;
+		p.i++;
 	}
-	return (median);
+	return (p.median);
 }
