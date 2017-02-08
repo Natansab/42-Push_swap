@@ -12,9 +12,10 @@
 
 NAME = push_swap
 
-SRC = main.c ft_ops.c circular_lst.c ope_tools.c ft_digit_or_space.c lis.c \
+SRC = main.c ft_ops.c circular_lst.c ope_tools.c ft_digit_or_space.c \
 		find_med_lst.c split_list.c ft_do_ops.c ft_optimize_ops.c \
-		ft_small_algo.c order_in_place.c
+		ft_small_algo.c order_in_place.c get_rid_of_a.c get_rid_of_b.c \
+		is_first_a_sorted.c
 
 OBJ = $(addprefix $(OBJDIR),$(SRC:.c=.o))
 

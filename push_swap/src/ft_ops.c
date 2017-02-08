@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 16:46:38 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/03 16:48:29 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/08 17:16:04 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_push_elem_two(t_list **src_pile, t_list **dst_pile)
 	}
 	else if (nb_of_elem(*dst_pile) == 1)
 	{
-		(*src_pile)->previous = (*dst_pile); 
+		(*src_pile)->previous = (*dst_pile);
 		(*src_pile)->next = (*dst_pile);
 		(*dst_pile)->previous = (*src_pile);
 		(*dst_pile)->next = (*src_pile);
