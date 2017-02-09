@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/01/26 20:46:19 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 19:51:36 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/09 09:54:32 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	read_ope(t_list **start_a, char **argv)
 	char	*line;
 	t_list	**start_b;
 
-	if ((start_b = ft_memalloc(sizeof(t_list*))) == NULL)
+	if ((start_b = malloc(sizeof(t_list*))) == NULL)
 		exit(0);
 	*start_b = NULL;
 	while (get_next_line(0, &line))
@@ -61,9 +61,11 @@ void	read_ope(t_list **start_a, char **argv)
 
 void	ft_operation(char *line, t_list **start_a, t_list **start_b)
 {
-	if (!ft_strcmp(line, "sa") || !ft_strcmp(line, "sb") || !ft_strcmp(line, "ss"))
+	if (!ft_strcmp(line, "sa") || !ft_strcmp(line, "sb") ||
+		!ft_strcmp(line, "ss"))
 		ft_swap_elem(line, start_a, start_b);
-	else if (!ft_strcmp(line, "ra") || !ft_strcmp(line, "rb") || !ft_strcmp(line, "rr"))
+	else if (!ft_strcmp(line, "ra") || !ft_strcmp(line, "rb") ||
+		!ft_strcmp(line, "rr"))
 		ft_rotate_elem(line, start_a, start_b);
 	else if (!ft_strcmp(line, "rra") || !ft_strcmp(line, "rrb") ||
 		!ft_strcmp(line, "rrr"))
@@ -75,6 +77,7 @@ void	ft_operation(char *line, t_list **start_a, t_list **start_b)
 	else if (ft_strcmp(line, "pa") && ft_strcmp(line, "pb"))
 	{
 		free_lst(*start_b);
+		free(start_b);
 		ft_exit_free_a(*start_a);
 	}
 }

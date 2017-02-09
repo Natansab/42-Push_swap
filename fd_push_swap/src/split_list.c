@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/02 14:23:43 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 19:38:12 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/09 09:23:29 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_main_algo(t_list *start_a, char *opsresult)
 {
 	t_list **start_b;
 
-	if ((start_b = ft_memalloc(sizeof(t_list*))) == NULL)
+	if ((start_b = malloc(sizeof(t_list*))) == NULL)
 		exit(0);
 	*start_b = NULL;
 	while (nb_of_elem(start_a) >= 3)

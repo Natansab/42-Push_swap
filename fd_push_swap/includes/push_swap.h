@@ -6,7 +6,7 @@
 /*   By: ewallner <ewallner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/04 20:13:07 by ewallner          #+#    #+#             */
-/*   Updated: 2017/02/08 17:20:20 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/09 09:32:07 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void			ft_rev_rotate_elem(char *line, t_list **start_a,
 int				nb_of_elem(t_list *begin_lst);
 void			linear_to_circular_lst(t_list *begin_lst);
 int				nb_of_elem(t_list *begin_lst);
-void			read_ope(t_list **start_a, char **argv);
 void			print_list(t_list **start_a);
 void			ft_operation(char *line, t_list **start_a, t_list **start_b);
 void			ft_operation(char *line, t_list **start_a, t_list **start_b);

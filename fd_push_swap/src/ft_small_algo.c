@@ -6,7 +6,7 @@
 /*   By: nsabbah <nsabbah@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/07 11:40:17 by nsabbah           #+#    #+#             */
-/*   Updated: 2017/02/08 19:38:56 by nsabbah          ###   ########.fr       */
+/*   Updated: 2017/02/09 09:22:32 by nsabbah          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ft_small_algo(t_list *start_a, char *opsresult)
 	t_min	min;
 	t_list	**start_b;
 
-	if ((start_b = ft_memalloc(sizeof(t_list*))) == NULL)
+	if ((start_b = malloc(sizeof(t_list*))) == NULL)
 		exit(0);
 	*start_b = NULL;
 	if (nb_of_elem(start_a) <= 3)

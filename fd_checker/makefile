@@ -42,7 +42,7 @@ $(LIBFT):
 	make -C ./libft
 
 $(NAME): obj libft $(OBJ)
-	$(CC) $(LIBLINK) -o $(NAME) $(OBJ)
+	$(CC) $(CFLAGS) $(LIBLINK) -o $(NAME) $(OBJ)
 	mv $(NAME) ../
 
 remlib:
